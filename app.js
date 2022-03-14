@@ -33,7 +33,10 @@ function scrapAfricanNews() {
 function scrapeData(site, queue) {
   (async () => {
     console.log('scrapAfricanNews Processing news : ', site.url)
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.connect({
+      browserWSEndpoint: `ws://localhost:3000/`,
+    });
+    //const browser = await puppeteer.launch();
     const page = await browser.newPage();
     try {
       await page.goto(site.url, {waitUntil: 'load', timeout: 90000});

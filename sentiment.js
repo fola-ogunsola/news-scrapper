@@ -1,4 +1,5 @@
 const db = require('./database.js')
+const cron = require('node-cron');
 const Sentiment = require('sentiment');
 const sentiment = new Sentiment();
 var Queue=require('js-queue');
@@ -32,6 +33,7 @@ function saveAnalyseNews (newsId, data){
     db.none(query , [newsId, data]).then(() => {
         let updateData = 'UPDATE news SET is_analyzed = true WHERE id = $1';
         db.none(updateData, [newsId]);
+        console.log(data)
         console.log('Data saved successfully');
     });
 }
@@ -40,3 +42,8 @@ analysisData()
 //  console.log(analyzeData.length)
 // const result = sentiment.analyze(analyzeData);
 // console.dir(result);    
+
+// cron.schedule('0 1 * * *', function (){
+//     analysisData()
+//     console.log('running a task every one hour')
+// })

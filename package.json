@@ -9,6 +9,7 @@
   "author": "fola",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.2",
     "cheerio": "^1.0.0-rc.10",
     "express": "^4.17.3",
     "js-queue": "^2.0.2",
