@@ -3,6 +3,7 @@ const app = express(); // Initializing Express
 const db = require('./database.js')
 const bodyParser = require('body-parser');
 const PORT = 4000
+const verifyApiKey = require('./apikey')
 
 // const userRouter = require('./routes/user')
 // const rentRouter = require('./routes/rent')
@@ -16,7 +17,7 @@ app.get('/', (req, res) => {
 
 
 
-app.get('/api/v1/news', function getAllNews(req, res){
+app.get('/api/v1/news', verifyApiKey, function getAllNews(req, res){
     let type = req.query.type;
     let query = "SELECT data -> 'score' AS score , news.title , news.url, news.description, news.extracted_text FROM analysis  JOIN news ON analysis.news_id = news.id";
 
@@ -37,7 +38,7 @@ app.get('/api/v1/news', function getAllNews(req, res){
         })
 })
 
-app.get('/api/v1/news/:id', function (req, res){
+app.get('/api/v1/news/:id', verifyApiKey, function (req, res){
     let newsId =  req.params.id;
     let sentimentQuery = "SELECT data -> 'score' AS score , news.title , news.url FROM analysis  JOIN news ON analysis.news_id = news.id WHERE news_id = $1";
     db.any(sentimentQuery, [newsId])
@@ -50,7 +51,7 @@ app.get('/api/v1/news/:id', function (req, res){
     })
 })
 
-app.get('/api/v1/new/daily', function(req, res){
+app.get('/api/v1/new/daily', verifyApiKey, function(req, res){
     let queryScore = "SELECT * FROM news WHERE created_at >= current_date::timestamp "
     db.any(queryScore)
     .then(function(results){

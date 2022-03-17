@@ -9,6 +9,7 @@ function analysisData () {
         let queue= new Queue;
 
         if(result && result.length > 0) {
+
             for(i = 0; i < result.length; i++){
                 queue.add(()=> generateSentimentAnalysis(result[i], queue)) 
             }
