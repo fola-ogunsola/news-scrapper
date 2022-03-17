@@ -63,16 +63,3 @@ app.get('/api/v1/new/daily', verifyApiKey, function(req, res){
 })
 
 app.listen(PORT, () => console.log(`server is running on port ${PORT}`));
-
-
-// SELECT news.url, news.title FROM news CROSS JOIN analysis;
-//SELECT data -> score FROM analysis WHERE id = 1 CROSS JOIN news
-// ;
-// SELECT data ->> 'score' AS score FROM analysis WHERE id = 1;
-// SELECT                
-// managers.created_at,managers.manager_id,managers.name, managers.email, outlets.outlet_name
-// FROM managers LEFT JOIN outlets 
-// ON outlets.outlet_id = managers.manager_id
-// GROUP BY managers.created_at,managers.manager_id,managers.name, managers.email, outlets.outlet_name
-
-//SELECT data -> 'score' AS score FROM analysis  JOIN news ON analysis.id = news.id GROUP BY analysis.score, news.title, news.url;
